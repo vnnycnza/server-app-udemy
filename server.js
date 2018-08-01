@@ -14,16 +14,15 @@ app.use((req, res, next) => {
 
 	console.log(log);
 	fs.appendFile('server.log', log + '\n', (err) => {
-		if (err) {
-			console.log('Unable to append to server.log');
-		}
+		if (err) console.log('Unable to append to server.log');
 	});
+
 	next();
 });
 
-app.use((req, res, next) => {
-	res.render('maintenance.hbs');
-});
+// app.use((req, res, next) => {
+// 	res.render('maintenance.hbs');
+// });
 
 app.use(express.static(__dirname + '/public'));
 
@@ -48,6 +47,11 @@ app.get('/about', (req, res) => {
 	});
 });
 
+app.get('/projects', (req, res) => {
+	res.render('projects.hbs', {
+		pageTitle: 'Projects'
+	});
+});
 
 app.listen(port, () => {
 	console.log(`Starting app on port ${port}`);
